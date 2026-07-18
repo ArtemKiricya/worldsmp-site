@@ -57,7 +57,7 @@
             overflow-x: hidden;
         }
 
-        /* ----- ЭКРАН АВТОРИЗАЦИИ ----- */
+        /* ЭКРАН АВТОРИЗАЦИИ */
         #authWrapper {
             width: 100%;
             max-width: 450px;
@@ -71,7 +71,7 @@
             text-align: center;
             display: none;
             flex-direction: column;
-            gap: 18px;
+            gap: 10px; /* Уменьшено расстояние между элементами */
         }
         #authWrapper.active { display: flex; }
         .auth-title {
@@ -97,7 +97,7 @@
         .auth-msg.success { color: #4ade80; }
         .auth-msg.error { color: #f87171; }
 
-        /* ----- ОСНОВНОЙ ИНТЕРФЕЙС ----- */
+        /* ОСНОВНОЙ ИНТЕРФЕЙС (без изменений) */
         .main-wrapper {
             width: 100%; max-width: 1000px; display: none;
         }
@@ -112,6 +112,7 @@
             transform: perspective(1000px) rotateX(1deg);
         }
 
+        /* (остальные стили без изменений) */
         .server-title {
             text-align: center; font-size: clamp(1.8rem, 6vw, 2.8rem); font-weight: bold;
             color: #ffd966; text-shadow: 0 0 20px #ff9900, 0 0 40px #ff6600, 2px 2px 10px rgba(0,0,0,0.8);
@@ -374,7 +375,7 @@
     </div>
 </div>
 
-<!-- ОСНОВНОЙ ИНТЕРФЕЙС -->
+<!-- ОСНОВНОЙ ИНТЕРФЕЙС (полный, без изменений в функционале) -->
 <div class="main-wrapper" id="mainWrapper">
     <div class="main-container">
         <h1 class="server-title">⛏️ WORLDSMP ⚔️</h1>
@@ -531,7 +532,7 @@
     </div>
 </div>
 
-<!-- Модалки -->
+<!-- Модальные окна -->
 <div class="modal" id="modsModal">
     <div class="modal-content">
         <h3>📋 ЗАПРЕЩЁННЫЕ МОДЫ</h3>
@@ -579,7 +580,6 @@
     };
     window.getCurrentUser = () => currentUser;
 
-    // Переключение форм
     window.showRegisterForm = () => {
         document.getElementById('authLoginForm').style.display = 'none';
         document.getElementById('authRegisterForm').style.display = 'block';
@@ -589,7 +589,6 @@
         document.getElementById('authLoginForm').style.display = 'block';
     };
 
-    // Авторизация
     window.authLogin = async function() {
         const username = document.getElementById('authLoginUsername').value.trim();
         const password = document.getElementById('authLoginPassword').value.trim();
@@ -656,7 +655,6 @@
         document.getElementById('authWrapper').classList.add('active');
     }
 
-    // Работа с Firebase
     async function initDefaults() {
         const snap = await get(usersRef);
         if (!snap.exists()) {
@@ -705,6 +703,7 @@
     onValue(newsRef, () => { renderNews(); });
     onValue(whitelistRef, () => { if (getCurrentUser()) renderWhitelist(); });
 
+    // (все функции submitComplaint, addReply, quickReply и т.д. – без изменений, работают)
     window.submitComplaint = async function() {
         const user = getCurrentUser();
         if (!user) { document.getElementById('compError').textContent = '❌ Необходимо войти!'; return; }
