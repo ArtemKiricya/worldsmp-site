@@ -291,6 +291,33 @@
         .btn-sm.danger { background: #8b2020; border-color: #c0392b; }
         .btn-sm.danger:hover { background: #b33a3a; box-shadow: 0 0 10px #ff4444; }
 
+        /* ========== УМЕНЬШЕННЫЕ СТИЛИ ДЛЯ БЕЛОГО ЛИСТА И АДМИНКИ ========== */
+        .whitelist-card {
+            background: rgba(15,20,30,0.7); border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px; padding: 14px 16px; margin-bottom: 10px;
+            font-size: 0.5rem; /* уменьшено */
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        .whitelist-card .wl-header {
+            display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;
+            margin-bottom: 6px; color: #ffcc66; font-weight: bold; font-size: 0.55rem;
+        }
+        .whitelist-card .wl-body { color: #ccc; line-height: 1.4; font-size: 0.5rem; }
+        .whitelist-card .wl-meta { color: #999; font-size: 0.4rem; margin-top: 4px; }
+
+        .admin-table {
+            width: 100%; border-collapse: collapse; font-size: 0.45rem; /* уменьшено */
+            margin-top: 10px;
+        }
+        .admin-table th, .admin-table td {
+            border: 1px solid rgba(255,255,255,0.15); padding: 6px 8px; text-align: left;
+        }
+        .admin-table th { background: rgba(30,30,40,0.8); color: #ff9999; }
+        .admin-table td { background: rgba(20,22,28,0.8); }
+        .admin-table select { font-family: inherit; font-size: 0.45rem; padding: 4px; background: #1a1d24; color: #fff; border: 1px solid #5d5344; border-radius: 4px; }
+
+        .moderation-panel h3, .admin-panel h3 { font-size: 0.65rem; }
         ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
         @media (max-width: 600px) { .rules-grid { grid-template-columns: 1fr; } .tab-btn { font-size: 0.5rem; padding: 8px 12px; } }
     </style>
@@ -301,7 +328,7 @@
 
 <div class="main-container" id="mainContainer">
     <h1 class="server-title">⛏️ WORLDSMP ⚔️</h1>
-    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v12.0 (Рабочие кнопки)</div>
+    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v13.0 (Компактно)</div>
     <div class="user-bar" id="userBar" style="display:none;"><span>👤 <span class="username" id="displayUsername"></span></span><span class="role-badge" id="displayRoleBadge"></span><button class="btn-sm danger" onclick="logout()">🚪 ВЫХОД</button></div>
     <div id="guestBar" style="text-align:center; margin-bottom:15px;">
         <button class="auth-btn" onclick="openLoginModal()">🔑 ВХОД</button>
@@ -316,7 +343,7 @@
         <button class="tab-btn" id="tabAdminBtn" style="display:none;" onclick="switchTab('tab-admin', this)">⚡ Админ</button>
     </div>
 
-    <!-- Правила -->
+    <!-- Правила (полный блок) -->
     <div id="tab-rules" class="tab-content main-tab active">
         <div class="tab-container" style="border-bottom:none; margin-bottom:12px;">
             <button class="tab-btn active" onclick="switchRulesSubTab('sub1', this)">🛡️ Основные</button>
@@ -357,7 +384,7 @@
         <div class="footer-note">⚡ WorldSMP · Играй честно · Администрация всегда права<br>Обновлено: июль 2026</div>
     </div>
 
-    <!-- Жалобы -->
+    <!-- Вкладка Жалобы -->
     <div id="tab-complaints" class="tab-content main-tab">
         <div class="complaint-form" id="complaintFormBlock" style="display:none;">
             <h3>📋 ПОДАТЬ ЖАЛОБУ НА ИГРОКА</h3>
@@ -379,7 +406,7 @@
         <div class="complaints-list" id="complaintsList"><p style="color:#888;">Загрузка...</p></div>
     </div>
 
-    <!-- Новости -->
+    <!-- Вкладка Новости -->
     <div id="tab-news" class="tab-content main-tab">
         <div id="newsFormBlock" style="display:none; margin-bottom: 20px;">
             <div class="complaint-form">
@@ -401,7 +428,7 @@
         <div class="news-list" id="newsList"><p style="color:#888;">Загрузка...</p></div>
     </div>
 
-    <!-- Белый лист -->
+    <!-- Вкладка Белый лист -->
     <div id="tab-whitelist" class="tab-content main-tab">
         <div id="whitelistFormBlock" style="display:none; margin-bottom: 20px;">
             <div class="complaint-form">
@@ -426,7 +453,7 @@
     <div id="tab-moderation" class="tab-content main-tab">
         <div class="moderation-panel" id="moderationPanelContent" style="background: rgba(0,0,0,0.6); border: 3px solid #2b6cb0; border-radius: 12px; padding: 16px; backdrop-filter: blur(4px);">
             <h3>🛠️ ПАНЕЛЬ МОДЕРАТОРА</h3>
-            <div style="overflow-x:auto;"><table class="admin-table" id="moderationTable" style="width:100%; border-collapse:collapse; font-size:0.45rem;"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Медиа</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="moderationTableBody"></tbody></table></div>
+            <div style="overflow-x:auto;"><table class="admin-table" id="moderationTable"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Медиа</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="moderationTableBody"></tbody></table></div>
         </div>
     </div>
 
@@ -434,16 +461,16 @@
     <div id="tab-admin" class="tab-content main-tab">
         <div class="admin-panel" id="adminPanelContent" style="background: rgba(0,0,0,0.6); border: 3px solid #9b2c2c; border-radius: 12px; padding: 16px; backdrop-filter: blur(4px);">
             <h3>⚡ УПРАВЛЕНИЕ ЖАЛОБАМИ</h3>
-            <div style="overflow-x:auto;"><table class="admin-table" id="adminTable" style="width:100%; border-collapse:collapse; font-size:0.45rem;"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Медиа</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="adminTableBody"></tbody></table></div>
+            <div style="overflow-x:auto;"><table class="admin-table" id="adminTable"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Медиа</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="adminTableBody"></tbody></table></div>
             <div id="userManagementSection" style="margin-top: 25px; display: none;">
                 <h3 style="color:#ffaa33;">👥 УПРАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯМИ</h3>
-                <div style="overflow-x:auto;"><table class="admin-table" id="usersTable" style="width:100%; border-collapse:collapse; font-size:0.45rem;"><thead><tr><th>Логин</th><th>Роль</th><th>Предупреждения</th><th>Сменить роль</th><th>Управление</th></tr></thead><tbody id="usersTableBody"></tbody></table></div>
+                <div style="overflow-x:auto;"><table class="admin-table" id="usersTable"><thead><tr><th>Логин</th><th>Роль</th><th>Предупреждения</th><th>Сменить роль</th><th>Управление</th></tr></thead><tbody id="usersTableBody"></tbody></table></div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Модальные окна -->
+<!-- Модальные окна (вход, регистрация, моды, предупреждение) -->
 <div class="modal" id="loginModal">
     <div class="modal-content">
         <h3>🔑 ВХОД</h3>
@@ -488,7 +515,6 @@
     </div>
 </div>
 
-<!-- Звук уведомления -->
 <audio id="notificationSound" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA="></audio>
 
 <script type="module">
@@ -859,10 +885,10 @@
         const userListEl = document.getElementById('whitelistUserList');
         const userEntries = entries.filter(([id, app]) => app.userId === user.username);
         if (userEntries.length === 0) {
-            userListEl.innerHTML = '<p style="color:#888;">У вас пока нет заявок.</p>';
+            userListEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">У вас пока нет заявок.</p>';
         } else {
             userListEl.innerHTML = userEntries.map(([id, app]) => `
-                <div class="whitelist-card" style="background: rgba(15,20,30,0.7); border:1px solid rgba(255,255,255,0.15); border-radius:16px; padding:16px; margin-bottom:10px;">
+                <div class="whitelist-card">
                     <div class="wl-header"><span>🎮 ${escapeHTML(app.minecraftNickname)}</span><span class="status-badge status-${app.status}">${statusLabel(app.status)}</span></div>
                     <div class="wl-body">📝 ${escapeHTML(app.reason)}</div>
                     ${app.profileLink ? `<div class="wl-body">🔗 <a href="${escapeHTML(app.profileLink)}" target="_blank">Профиль</a></div>` : ''}
@@ -873,10 +899,10 @@
         const staffListEl = document.getElementById('whitelistAllList');
         if (user.role === 'admin' || user.role === 'moderator') {
             if (entries.length === 0) {
-                staffListEl.innerHTML = '<p style="color:#888;">Нет заявок.</p>';
+                staffListEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">Нет заявок.</p>';
             } else {
                 staffListEl.innerHTML = entries.map(([id, app]) => `
-                    <div class="whitelist-card" style="background: rgba(15,20,30,0.7); border:1px solid rgba(255,255,255,0.15); border-radius:16px; padding:16px; margin-bottom:10px;">
+                    <div class="whitelist-card">
                         <div class="wl-header"><span>🎮 ${escapeHTML(app.minecraftNickname)}</span><span class="status-badge status-${app.status}">${statusLabel(app.status)}</span></div>
                         <div class="wl-body">👤 Подал: ${escapeHTML(app.userId)} | 📝 ${escapeHTML(app.reason)}</div>
                         ${app.profileLink ? `<div class="wl-body">🔗 <a href="${escapeHTML(app.profileLink)}" target="_blank">Профиль</a></div>` : ''}
